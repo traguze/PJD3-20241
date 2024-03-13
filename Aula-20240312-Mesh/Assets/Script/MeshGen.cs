@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class MeshGen<T> where T : MeshParams
+public class MeshGen<T, T1> where T : MeshParams
 {
     public T Params { get; protected set; }
 
@@ -25,9 +25,15 @@ public class MeshGen<T> where T : MeshParams
         return (vertices, triangles);
     }
 
+    public virtual Mesh PostCreate(Mesh m)
+    {
+        return m;
+    }
+
     public Mesh Create(T meshParams)
     {
         Params = meshParams;
+        Pivot = meshParams.Pivot;
 
         var (vertices, triangles) = Generate();
         
@@ -42,7 +48,8 @@ public class MeshGen<T> where T : MeshParams
         //mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
-        return mesh;
+        return PostCreate(mesh);
+
     }
 
 

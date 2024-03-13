@@ -19,22 +19,18 @@ public class GameController : MonoBehaviour
 
         var mg = new MGCube();
 
-        mf.sharedMesh = mg.Create(new CubeMeshParams());
+        var cubeParams = new CubeMeshParams()
+        {
+            //Width = 2,
+            //Height = 3,
+            //Length = 0.5f,
+            Pivot = new Vector3(0.5f,0.5f,0.5f),
+        };
+
+        mf.sharedMesh = mg.Create(cubeParams);
         mr.sharedMaterial = material;
 
-
-        Vector3 v = Vector3.zero;
-        Debug.Log(v);
-        
-        v = Vector3.zero.X(1);
-        Debug.Log(v);
-
-        v = Vector3.zero.Y(1).X(2);
-        Debug.Log(v);
-
-        v = Vector3.zero.Z(1).Y(3).X(10);
-        Debug.Log(v);
-
+        go.AddComponent<MeshNormalDraw>();
     }
 }
 
